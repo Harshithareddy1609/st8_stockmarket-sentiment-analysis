@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Sentiment Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #e94560;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+            animation: fadeIn 2s ease-in-out;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px;
+        }
+        .stock-info {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            width: 40%;
+            box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+            transition: transform 0.3s;
+        }
+        .stock-info:hover {
+            transform: scale(1.05);
+        }
+        .predict-container {
+            margin-top: 30px;
+        }
+        #predict-btn {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s ease-in-out;
+        }
+        #predict-btn:hover {
+            background: #ff2e63;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const button = document.getElementById("predict-btn");
+            button.addEventListener("click", function () {
+                alert("Sentiment prediction coming soon!");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Stock Market Sentiment Analysis</h1>
+            <p>Analyze market trends and predict sentiment using AI-driven insights.</p>
+        </header>
+        
+        <section class="info">
+            <div class="stock-info">
+                <h2>Why Sentiment Analysis?</h2>
+                <p>Stock market sentiment analysis helps investors understand market mood based on news, social media, and financial reports.</p>
+            </div>
+            <div class="stock-info">
+                <h2>How It Works?</h2>
+                <p>Using Natural Language Processing (NLP) and machine learning, our model predicts stock sentiment to assist traders in making informed decisions.</p>
+            </div>
+        </section>
+        
+        <div class="predict-container">
+            <button id="predict-btn">Predict Sentiment</button>
+        </div>
+    </div>
+</body>
+</html>
