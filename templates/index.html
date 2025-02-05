@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Sentiment Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1b1b1b;
+            color: white;
+            overflow-x: hidden;
+            animation: backgroundColorChange 10s ease-in-out infinite;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #1e7a1e; /* Stock market green */
+        }
+
+        .info {
+            font-size: 1.2em;
+            color: #f2f2f2;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 50px;
+        }
+
+        .info-section {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideIn 2s ease-in-out;
+        }
+
+        button {
+            background-color: #2ecc71;
+            color: white;
+            font-size: 1.5em;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            animation: pulse 1.5s infinite;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @keyframes backgroundColorChange {
+            0%, 100% {
+                background-color: #1b1b1b;
+            }
+            50% {
+                background-color: #333;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stock Market Sentiment Analysis</h1>
+        <p class="info">Understand the market trends with real-time sentiment analysis</p>
+    </header>
+    <main>
+        <div class="info-section">
+            <h2>Stock Market Overview</h2>
+            <p>Stock market sentiment refers to the overall attitude of investors toward a particular security or the market as a whole. It is often driven by factors like news, economic reports, or political events. A positive sentiment indicates optimism and a potential rise in stock prices, while negative sentiment signals potential declines.</p>
+        </div>
+        <div class="button-container">
+            <button id="predictButton">Predict Sentiment</button>
+        </div>
+    </main>
+    <footer>
+        <p>Data sourced from market reports and news.</p>
+    </footer>
+
+    <script>
+        document.getElementById('predictButton').addEventListener('click', function() {
+            let sentiment = getSentiment();
+            alert('Predicted Sentiment: ' + sentiment);
+        });
+
+        function getSentiment() {
+            // For demo purposes, you can replace this with actual sentiment analysis logic
+            const sentiments = ['Positive', 'Negative', 'Neutral'];
+            return sentiments[Math.floor(Math.random() * sentiments.length)];
+        }
+    </script>
+</body>
+</html>
