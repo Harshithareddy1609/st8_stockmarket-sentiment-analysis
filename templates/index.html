@@ -61,7 +61,6 @@
       font-size: 1rem;
       color: #b19cd9;
     }
-
   </style>
 </head>
 <body>
@@ -74,7 +73,7 @@
     </header>
 
     <!-- Predict Button -->
-    <button id="predictButton" class="predict-button">Predict Sentiment</button>
+    <button id="predictButton" class="predict-button" aria-label="Predict Market Sentiment">Predict Sentiment</button>
 
     <!-- Footer -->
     <footer>
@@ -83,9 +82,9 @@
   </div>
 
   <script>
-    // Predict Sentiment Button Interaction
+    // Redirect to /predict when the button is clicked
     document.getElementById('predictButton').addEventListener('click', () => {
-      alert('Predict Sentiment feature coming soon!');
+      window.location.href = '/predict';
     });
   </script>
 </body>
