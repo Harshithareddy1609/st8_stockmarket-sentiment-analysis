@@ -1,10 +1,10 @@
-from flask import Flask,render_template 
+from flask import Flask,render_template,request
 app=Flask(__name__)
 
 @app.route("/")
 def index():
     return render_template("index.html")
-@app.route("/predict",methods=["post","Get"])
+@app.route("/predict",methods=["POST","get"])
 def predict():
     if request.method =="POST" :
         msg=request.form.get("message")
