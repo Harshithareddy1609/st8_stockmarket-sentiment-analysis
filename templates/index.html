@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Sentiment Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="animated-title">Stock Market Sentiment Analysis</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#predict">Predict Sentiment</a></li>
+                <li><a href="#stocks">Stock Market</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="hero">
+        <h2>Analyze Market Sentiments with AI</h2>
+        <p>Gain insights on stock market trends and predict sentiments instantly.</p>
+        <button id="start-btn" onclick="window.location.href='/predict'">Get Started</button>
+    </section>
+
+    <section id="predict">
+        <h2>Predict Sentiment</h2>
+        <textarea id="userInput" placeholder="Enter stock-related news or text..."></textarea>
+        <button id="predict-btn" onclick="window.location.href='/predict'">Predict Sentiment</button>
+        <p id="prediction-result"></p>
+    </section>
+    
+    <section id="stocks">
+        <h2>Live Stock Market</h2>
+        <div id="stock-info">
+            <p>Loading stock data...</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Stock Market Sentiment Analysis. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
