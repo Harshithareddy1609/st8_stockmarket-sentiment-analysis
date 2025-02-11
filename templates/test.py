@@ -1,41 +1,28 @@
-import re
-import nltk
-from nltk.tokenize import word_tokenize
-nltk.download("punkt_tab")
-from nltk.corpus import stopwords
-nltk.download('stopwords')
-from nltk.stem import PorterStemmer
+import joblib
 
+# Load trained model and vectorizer
+vectorizer, model = joblib.load("sentiment_model.pkl")
 
-class TextToNum:
-    def __init__(self,text):
-        self.text=text
+def predict_sentiment(text):
+    """Predict the sentiment of a given text input."""
+    cleaned_text = [" ".join(text.lower().split())]  # Simple text cleaning
+    vectorized_text = vectorizer.transform(cleaned_text)  # Convert to numerical format
+    prediction = model.predict(vectorized_text)[0]  # Predict sentiment
+    return prediction
 
-    def cleaner(self):
-        text = re.sub(r',','',self.text)
-        cleaned_text = re.sub(r'[^\w\s]', '', text)  # Removes everything except word characters and spaces
-        cleaned_text = re.sub(r'\s+', ' ', cleaned_text)  # Replaces multiple spaces with a single space
-        cleaned_data = cleaned_text.strip()  # Removes leading/trailing whitespace
-        self.cleaned=cleaned_data
+# **🔹 Testing with Sample Inputs**
+test_sentences = [
+    "Stock prices are rising significantly today!",
+    "The company is facing major financial losses.",
+    "I am optimistic about the market trends.",
+    "The market crash is causing panic among investors.",
+    "This is the best time to invest in stocks!"
+]
 
-    def token(self):
-        self.tkns=word_tokenize(self.cleaned)
+# **🔹 Running Predictions**
+print("\n🔍 Testing Sentiment Analysis Model...\n")
+for sentence in test_sentences:
+    result = predict_sentiment(sentence)
+    print(f"Text: {sentence} ➝ Predicted Sentiment: {result}")
 
-    def removeStop(self):
-        stop=stopwords.words('english')
-        self.cl = [i for i in self.tkns if i not in stop]
-
-    def stemme(self):
-        ps=PorterStemmer()
-        self.st = [ps.stem(word) for word in self.cl]
-        return self.st
-    
-
-    
-
-
-
-    
-
-
-
+print("\n✅ Model testing complete!")
