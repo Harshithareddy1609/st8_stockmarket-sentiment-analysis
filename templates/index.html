@@ -1,71 +1,290 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stock Sentiment</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e1e2f, #2a2a40);
-      color: #fff;
-      text-align: center;
-    }
 
-    .container {
-      max-width: 800px;
-      margin: 15% auto;
-    }
-
-    h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      background: linear-gradient(45deg, #a020f0, #d473ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    p {
-      font-size: 1.5rem;
-      color: #ddd;
-    }
-
-    .predict-button {
-      margin-top: 20px;
-      padding: 15px 30px;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(45deg, #a020f0, #d473ff);
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(160, 32, 240, 0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .predict-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px rgba(160, 32, 240, 0.8);
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Stock Market Sentiment</h1>
-    <p>AI-powered market trend predictions at a glance.</p>
-    <button id="predictButton" class="predict-button">See Prediction</button>
-  </div>
-
-  <script>
-    document.getElementById('predictButton').addEventListener('click', () => {
-      window.location.href = '/predict';
-    });
-  </script>
-</body>
-</html>
-
-
-
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>StockEcho – Hear what the market whispers</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+ 
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+             font-family: 'Poppins', sans-serif;
+         }
+ 
+         body {
+             background-color: #121212;
+             color: #fff;
+             overflow-x: hidden;
+         }
+ 
+         /* Animated Background Elements */
+         .background-elements {
+             position: fixed;
+             width: 100vw;
+             height: 100vh;
+             pointer-events: none;
+             z-index: -1;
+         }
+ 
+         .floating-circle {
+             position: absolute;
+             border-radius: 50%;
+             background: radial-gradient(circle, rgba(138,43,226,0.2) 0%, rgba(138,43,226,0) 70%);
+             animation: float 20s infinite linear;
+         }
+ 
+         /* Navigation */
+         .navbar {
+             padding: 1.5rem 5%;
+             backdrop-filter: blur(10px);
+             position: fixed;
+             width: 100%;
+             z-index: 1000;
+         }
+ 
+         .nav-links {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+         }
+ 
+         .nav-links a {
+             color: #fff;
+             text-decoration: none;
+             margin: 0 1.5rem;
+             transition: all 0.3s ease;
+             position: relative;
+         }
+ 
+         .nav-links a::after {
+             content: '';
+             position: absolute;
+             bottom: -5px;
+             left: 0;
+             width: 0;
+             height: 2px;
+             background: #8a2be2;
+             transition: width 0.3s ease;
+         }
+ 
+         .nav-links a:hover::after {
+             width: 100%;
+         }
+ 
+         /* Hero Section */
+         .hero {
+             height: 100vh;
+             display: flex;
+             align-items: center;
+             padding: 0 5%;
+             position: relative;
+         }
+ 
+         .hero-content {
+             max-width: 600px;
+             transform: translateY(50px);
+             opacity: 0;
+             animation: slideUp 1s forwards 0.5s;
+         }
+ 
+         .hero h1 {
+             font-size: 4rem;
+             background: linear-gradient(45deg, #8a2be2, #d473ff);
+             -webkit-background-clip: text;
+             -webkit-text-fill-color: transparent;
+             margin-bottom: 1.5rem;
+         }
+ 
+         .hero p {
+             font-size: 1.2rem;
+             line-height: 1.6;
+             margin-bottom: 2rem;
+             opacity: 0.9;
+         }
+ 
+         /* CTA Button */
+         .cta-button {
+             padding: 15px 30px;
+             font-size: 1.2rem;
+             font-weight: 600;
+             color: #fff;
+             background: linear-gradient(45deg, #8a2be2, #d473ff);
+             border: none;
+             border-radius: 30px;
+             cursor: pointer;
+             box-shadow: 0 0 20px rgba(138,43,226,0.5);
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+         }
+ 
+         .cta-button:hover {
+             transform: scale(1.05);
+             box-shadow: 0 0 30px rgba(138,43,226,0.8);
+         }
+ 
+         /* Features Section */
+         .features {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+             gap: 2rem;
+             padding: 5rem 5%;
+         }
+ 
+         .feature-card {
+             background: #1e1e1e;
+             padding: 2rem;
+             border-radius: 15px;
+             transition: transform 0.3s ease;
+             position: relative;
+             overflow: hidden;
+         }
+ 
+         .feature-card::before {
+             content: '';
+             position: absolute;
+             top: -50%;
+             left: -50%;
+             width: 200%;
+             height: 200%;
+             background: linear-gradient(45deg, transparent, #8a2be2, transparent);
+             transform: rotate(45deg);
+             animation: cardGlow 3s infinite linear;
+         }
+ 
+         .feature-card:hover {
+             transform: translateY(-10px);
+         }
+ 
+         /* Ticker */
+         .ticker-container {
+             background: #1e1e1e;
+             padding: 1rem 0;
+             margin: 2rem 0;
+             overflow: hidden;
+         }
+ 
+         .ticker {
+             display: flex;
+             animation: tickerScroll 30s infinite linear;
+         }
+ 
+         /* Animations */
+         @keyframes float {
+             0% { transform: translate(0, 0) rotate(0deg); }
+             25% { transform: translate(10vw, 10vh) rotate(90deg); }
+             50% { transform: translate(-5vw, 20vh) rotate(180deg); }
+             75% { transform: translate(-10vw, 5vh) rotate(270deg); }
+             100% { transform: translate(0, 0) rotate(360deg); }
+         }
+ 
+         @keyframes slideUp {
+             to { transform: translateY(0); opacity: 1; }
+         }
+ 
+         @keyframes cardGlow {
+             0% { transform: rotate(45deg) translateX(-50%); }
+             100% { transform: rotate(45deg) translateX(50%); }
+         }
+ 
+         @keyframes tickerScroll {
+             0% { transform: translateX(100%); }
+             100% { transform: translateX(-100%); }
+         }
+ 
+         @media (max-width: 768px) {
+             .hero h1 { font-size: 2.5rem; }
+             .features { grid-template-columns: 1fr; }
+         }
+     </style>
+ </head>
+ <body>
+     <div class="background-elements">
+         <div class="floating-circle" style="width: 300px; height: 300px; top: 20%; left: 10%"></div>
+         <div class="floating-circle" style="width: 200px; height: 200px; top: 60%; left: 80%"></div>
+     </div>
+ 
+     <nav class="navbar">
+         <div class="nav-links">
+             <h2>StockEcho</h2>
+             <div>
+                 <a href="#home">Home</a>
+                 <a href="#features">Features</a>
+                 <a href="#about">About</a>
+                 <a href="#contact">Contact</a>
+             </div>
+         </div>
+     </nav>
+ 
+     <section class="hero" id="home">
+         <div class="hero-content">
+             <h1>Hear What the Market Whispers</h1>
+             <p>Advanced AI analysis of market sentiment across news, social media, and financial data</p>
+             <button id="predictButton" class="cta-button">Start Analysis</button>
+         </div>
+     </section>
+ 
+     <div class="ticker-container">
+         <div class="ticker"></div>
+     </div>
+ 
+     <section class="features" id="features">
+         <div class="feature-card">
+             <h3>Real-time Monitoring</h3>
+             <p>24/7 tracking of market conversations and news trends</p>
+         </div>
+         <div class="feature-card">
+             <h3>AI Interpretation</h3>
+             <p>Deep learning models analyzing market psychology</p>
+         </div>
+         <div class="feature-card">
+             <h3>Smart Alerts</h3>
+             <p>Instant notifications for significant sentiment shifts</p>
+         </div>
+     </section>
+ 
+     <script>
+         // Ticker Implementation
+         const ticker = document.querySelector('.ticker');
+         const stocks = ['AAPL', 'GOOGL', 'TSLA', 'AMZN', 'MSFT', 'NFLX'];
+         
+         stocks.forEach(stock => {
+             const tickerItem = document.createElement('div');
+             tickerItem.className = 'ticker-item';
+             tickerItem.innerHTML = `
+                 <span style="color: #8a2be2; margin-right: 10px">${stock}</span>
+                 <span>$${(Math.random() * 500).toFixed(2)}</span>
+                 <span style="margin-left: 15px; color: ${Math.random() > 0.5 ? '#4CAF50' : '#f44336'}">
+                     ${(Math.random() > 0.5 ? '+' : '-')}${(Math.random() * 5).toFixed(2)}%
+                 </span>
+             `;
+             ticker.appendChild(tickerItem.cloneNode(true));
+             ticker.appendChild(tickerItem.cloneNode(true));
+         });
+ 
+         // Scroll Animations
+         const observer = new IntersectionObserver((entries) => {
+             entries.forEach(entry => {
+                 if (entry.isIntersecting) {
+                     entry.target.style.opacity = 1;
+                     entry.target.style.transform = 'translateY(0)';
+                 }
+             });
+         });
+ 
+         document.querySelectorAll('.feature-card').forEach(card => {
+             card.style.opacity = 0;
+             card.style.transform = 'translateY(50px)';
+             observer.observe(card);
+         });
+ 
+         // Prediction Routing
+         document.getElementById('predictButton').addEventListener('click', () => {
+             window.location.href = '/predict';
+         });
+     </script>
+ </body>
+ </html>
