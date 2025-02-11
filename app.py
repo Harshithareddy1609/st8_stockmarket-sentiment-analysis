@@ -1,37 +1,25 @@
-import pickle
-from flask import Flask,render_template,request
-from test import TextToNum
-app=Flask(__name__)
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# Function to analyze sentiment (Replace with actual sentiment analysis logic)
+def analyze_sentiment(text):
+    if "good" in text.lower():
+        return "Positive"
+    elif "bad" in text.lower():
+        return "Negative"
+    else:
+        return "Neutral"
 
 @app.route("/")
-def index():
-    return render_template("index.html")
-@app.route("/predict",methods=["POST","get"])
+def home():
+    return render_template("index.html")  # Ensure index.html is available
+
+@app.route("/predict", methods=["POST"])
 def predict():
-    if request.method=="POST":
-        msg=request.form.get("message")
-        print(msg)
-        ob=texttonum(msg)
-        ob.cleaner()
-        ob.token()
-        ob.removestop()
-        st=ob.stem()
-        stem_vector=" ".join(st)
+    user_message = request.form.get("message")  # Get user input
+    sentiment = analyze_sentiment(user_message)  # Analyze sentiment
+    return f"Predicted Sentiment: {sentiment}"  # Return result
 
-        with open("vectorizer.pickle","rb") as vc:
-            vectorizer=pickle.load(vc)
-        vcdata=vectorizer.transform([stem_vector]).toarray()
-        print(vcdata)
-        
-        with open("model.pickle","rb") as mc:
-            model=pickle.load(mc)
-
-        pred=model.predict(vcdata)
-        print(pred)
-
-
-    else:
-        return render_template("predict.html")
-    #return render_template("predict.html")
-if __name__=="__main__":
-    app.run(host="0.0.0.0",port=5050)
+if __name__ == "__main__":
+    app.run(debug=True)
